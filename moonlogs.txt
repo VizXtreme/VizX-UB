@@ -1,0 +1,19 @@
+2026-05-07 20:54:10,569 - pyrogram.connection.connection - INFO - Connecting...
+2026-05-07 20:54:10,697 - pyrogram.connection.connection - INFO - Connected! Production DC5 - IPv4
+2026-05-07 20:54:10,700 - pyrogram.session.session - INFO - NetworkTask started
+2026-05-07 20:54:11,022 - pyrogram.session.session - INFO - Session initialized: Layer 220
+2026-05-07 20:54:11,024 - pyrogram.session.session - INFO - Device: Moon-Userbot @ 398e8a8 - 2.5.22
+2026-05-07 20:54:11,024 - pyrogram.session.session - INFO - System: 10.0.26200 AMD64 (en)
+2026-05-07 20:54:11,024 - pyrogram.session.session - INFO - Session started
+2026-05-07 20:54:11,024 - pyrogram.session.session - INFO - PingTask started
+2026-05-07 20:54:11,342 - pyrogram.dispatcher - INFO - Started 16 HandlerTasks
+2026-05-07 20:54:11,449 - root - INFO - Imported 31 modules
+2026-05-07 20:54:11,449 - root - INFO - Initialized HelpNavigator with 31 modules
+2026-05-07 20:54:11,451 - root - INFO - Moon-Userbot started!
+2026-05-07 20:56:07,130 - root - INFO - Stop signal received (SIGINT). Exiting...
+2026-05-07 20:56:07,132 - root - INFO - Shutting down... cancelling background tasks.
+2026-05-07 20:56:07,439 - pyrogram.dispatcher - INFO - Stopped 16 HandlerTasks
+2026-05-07 20:56:07,439 - pyrogram.session.session - INFO - PingTask stopped
+2026-05-07 20:56:07,439 - pyrogram.session.session - INFO - NetworkTask stopped
+2026-05-07 20:56:07,439 - pyrogram.connection.connection - INFO - Disconnected
+2026-05-07 20:56:07,439 - pyrogram.session.session - INFO - Session stopped

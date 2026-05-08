@@ -1,0 +1,15 @@
+services:
+    vizxub:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: vizxub
+        restart: unless-stopped
+        env_file:
+            - .env
+        networks:
+            - default
+
+networks:
+    default:
+        external: false
