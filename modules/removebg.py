@@ -5,7 +5,7 @@
 # Please see < https://github.com/DevsExpo/blob/master/LICENSE >
 #
 # All rights reserved.
-# Modifed by @moonuserbot
+# Modifed by VizX-UB
 
 import io
 import os
@@ -152,13 +152,13 @@ async def rmbg(client: Client, message: Message):
         end = datetime.now()
         ms = (end - start).seconds
         await pablo.edit(
-            f"<code>Removed image's Background in {ms} seconds, powered by </code> <b>@moonuserbot</b>"
+            f"<code>Removed image's Background in {ms} seconds, powered by </code> <b>VizX-UB</b>"
         )
         if os.path.exists("BG_rem.png"):
             os.remove("BG_rem.png")
     else:
         await pablo.edit(
-            "ReMove.BG API returned Errors. Please report to @moonub_chat"
+            "ReMove.BG API returned Errors. Please report to support chat."
             + f"\n`{r_content.decode('UTF-8')}"
         )
 
