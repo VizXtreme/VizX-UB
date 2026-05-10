@@ -24,13 +24,7 @@ from utils import modules_help, prefix
 @Client.on_message(filters.command(["ping", "p"], prefix) & filters.me)
 async def ping(client: Client, message: Message):
     latency = await client.ping()
-    await message.edit(
-        "<b>⚡ PONG!</b>\n"
-        "━━━━━━━━━━━━━━━\n"
-        f"<b>Latency:</b> <code>{latency}ms</code>\n"
-        "<b>Bot:</b> <code>VizX-UB</code>\n"
-        "━━━━━━━━━━━━━━━"
-    )
+    await message.edit(f"<b>[VizX]</b> <code>PING</code> → <b>{latency}ms</b> ⚡")
 
 
 modules_help["ping"] = {

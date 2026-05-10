@@ -28,6 +28,7 @@ async def help_cmd(_, message: Message):
         return
 
     if len(message.command) == 1:
+        module_manager.help_navigator.current_page = 1
         await module_manager.help_navigator.send_page(message)
     elif message.command[1].lower() in modules_help:
         await message.edit(format_module_help(message.command[1].lower(), prefix))
@@ -41,11 +42,14 @@ async def help_cmd(_, message: Message):
                     cmd_desc = commands[command]
                     module_found = True
                     return await message.edit(
-                        f"<b>Help for command <code>{prefix}{command_name}</code></b>\n"
-                        f"Module: {module_name} (<code>{prefix}help {module_name}</code>)\n\n"
-                        f"<code>{prefix}{cmd[0]}</code>"
-                        f"{' <code>' + cmd[1] + '</code>' if len(cmd) > 1 else ''}"
-                        f" — <i>{cmd_desc}</i>",
+                        f"📘 <b>VizX-UB</b> │ <code>Command: {command_name}</code>\n\n"
+                        f"  ╭─ Details\n"
+                        f"  │  Module: <b>{module_name}</b>\n"
+                        f"  │\n"
+                        f"  │  <code>{prefix}{cmd[0]}</code>"
+                        f"{' <code>' + cmd[1] + '</code>' if len(cmd) > 1 else ''}\n"
+                        f"  │  <i>{cmd_desc}</i>\n"
+                        f"  ╰─────────────",
                     )
         if not module_found:
             found = await module_manager.help_navigator.send_search_results(
@@ -80,8 +84,16 @@ async def handle_navigation(_, message: Message):
         return
 
     reply_message = message.reply_to_message
-    if reply_message and "VizX-UB Help" in message.reply_to_message.text:
-        cmd = message.command[0].lower()
+    if not reply_message:
+        return await message.edit("<b>Reply to a help message to navigate.</b>")
+
+    cmd = message.command[0].lower()
+    
+    if cmd == "pq":
+        await reply_message.delete()
+        return await message.delete()
+
+    if "VizX-UB" in reply_message.text or "Help" in reply_message.text:
         if cmd == "pn":
             if module_manager.help_navigator.next_page():
                 await module_manager.help_navigator.send_page(reply_message)
@@ -92,9 +104,6 @@ async def handle_navigation(_, message: Message):
                 await module_manager.help_navigator.send_page(reply_message)
                 return await message.delete()
             return await message.edit("This is the first page.")
-        elif cmd == "pq":
-            await reply_message.delete()
-            return await message.edit("Help closed.")
 
 
 modules_help["help"] = {

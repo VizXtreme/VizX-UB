@@ -334,19 +334,19 @@ def format_module_help(module_name: str, full=True):
     commands = modules_help[module_name]
 
     if full:
-        help_text = f"<b>📖 Module: {module_name}</b>\n"
-        help_text += "━━━━━━━━━━━━━━━\n\n"
+        help_text = f"📘 <b>VizX-UB</b> │ <code>Module: {module_name}</code>\n\n"
+        help_text += "  ╭─ Commands\n"
     else:
         help_text = ""
 
     for command, desc in commands.items():
         cmd = command.split(maxsplit=1)
         args = " <code>" + cmd[1] + "</code>" if len(cmd) > 1 else ""
-        help_text += f"<code>{prefix}{cmd[0]}</code>{args}\n"
-        help_text += f"  └ <i>{desc}</i>\n\n"
+        help_text += f"  │  <code>{prefix}{cmd[0]}</code>{args}\n"
+        help_text += f"  │  <i>{desc}</i>\n  │\n"
 
     if full:
-        help_text += "━━━━━━━━━━━━━━━"
+        help_text += "  ╰─────────────"
 
     return help_text
 
@@ -354,16 +354,20 @@ def format_module_help(module_name: str, full=True):
 def format_small_module_help(module_name: str, full=True):
     commands = modules_help[module_name]
 
-    help_text = (
-        f"<b>Help for |{module_name}|\n\nCommands list:\n"
-        if full
-        else "<b>Commands list:\n"
-    )
+    if full:
+        help_text = f"📘 <b>VizX-UB</b> │ <code>Module: {module_name}</code>\n\n"
+        help_text += "  ╭─ Commands\n"
+    else:
+        help_text = ""
+
     for command, _desc in commands.items():
         cmd = command.split(maxsplit=1)
         args = " <code>" + cmd[1] + "</code>" if len(cmd) > 1 else ""
-        help_text += f"<code>{prefix}{cmd[0]}</code>{args}\n"
-    help_text += f"\nGet full usage: <code>{prefix}help {module_name}</code></b>"
+        help_text += f"  │  <code>{prefix}{cmd[0]}</code>{args}\n"
+
+    if full:
+        help_text += "  │\n  ╰─────────────\n\n"
+        help_text += f"💡 <code>{prefix}help {module_name}</code> for full details"
 
     return help_text
 

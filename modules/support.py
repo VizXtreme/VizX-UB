@@ -35,20 +35,25 @@ async def support(_, message: Message):
             commands_count += 1
 
     await message.edit(
-        "<b>🔮 VizX-UB</b>\n"
-        "━━━━━━━━━━━━━━━━━━━\n\n"
-        "<b>📊 Stats</b>\n"
-        f"  ├ Version: <code>{userbot_version}</code>\n"
-        f"  ├ Python: <code>{python_version}</code>\n"
-        f"  ├ Modules: <code>{len(modules_help)}</code>\n"
-        f"  └ Commands: <code>{int(commands_count)}</code>\n\n"
-        "<b>🔗 Links</b>\n"
-        "  ├ <a href=https://github.com/The-MoonTg-project/VizX-UB>GitHub Repository</a>\n"
-        "  ├ <a href=https://github.com/The-MoonTg-project/custom_modules>Custom Modules</a>\n"
-        "  └ <a href=https://github.com/The-MoonTg-project/VizX-UB/blob/main/LICENSE>License (GPL v3)</a>\n\n"
-        "<b>👨‍💻 Devs</b>\n"
-        f"  └ {', '.join(devs)}\n"
-        "━━━━━━━━━━━━━━━━━━━",
+        "📘 <b>VizX-UB</b> │ <code>Info</code>\n\n"
+        "  ╭─ About\n"
+        "  │  Userbot: <b>VizX-UB</b>\n"
+        f"  │  Version: <code>{userbot_version}</code>\n"
+        f"  │  Python: <code>{python_version}</code>\n"
+        "  │\n"
+        "  ├─ Stats\n"
+        f"  │  Modules: <code>{len(modules_help)}</code>\n"
+        f"  │  Commands: <code>{int(commands_count)}</code>\n"
+        "  │\n"
+        "  ├─ Links\n"
+        "  │  <a href='https://github.com/The-MoonTg-project/Moon-Userbot'>GitHub Repository</a>\n"
+        "  │  <a href='https://github.com/The-MoonTg-project/custom_modules'>Custom Modules</a>\n"
+        "  │  <a href='https://github.com/The-MoonTg-project/Moon-Userbot/blob/master/LICENSE'>License</a>\n"
+        "  │\n"
+        "  ├─ Devs\n"
+        f"  │  {', '.join(devs)}\n"
+        "  │\n"
+        "  ╰─────────────",
         disable_web_page_preview=True,
     )
 
@@ -90,20 +95,21 @@ async def version(client: Client, message: Message):
     author_name = commit_obj.author.decode("utf-8").split("<")[0].strip()
 
     branch_line = (
-        f"  ├ <b>Branch:</b> <a href={remote_url}/tree/{active_branch}>{active_branch}</a>\n"
+        f"  │  Branch: <a href='{remote_url}/tree/{active_branch}'>{active_branch}</a>\n"
         if active_branch not in ["master", "main"]
-        else f"  ├ <b>Branch:</b> <code>{active_branch}</code>\n"
+        else f"  │  Branch: <code>{active_branch}</code>\n"
     )
 
     await message.reply(
-        "<b>📋 VizX-UB Version</b>\n"
-        "━━━━━━━━━━━━━━━━━━━━━\n"
-        f"  ├ <b>Version:</b> <code>{userbot_version}</code>\n"
+        "📘 <b>VizX-UB</b> │ <code>Version</code>\n\n"
+        "  ╭─ Details\n"
+        f"  │  Version: <code>{userbot_version}</code>\n"
         + branch_line
-        + f"  ├ <b>Commit:</b> <a href={remote_url}/commit/{hexsha}>{hexsha[:7]}</a>\n"
-        f"  ├ <b>Author:</b> <i>{author_name}</i>\n"
-        f"  └ <b>Time:</b> <code>{commit_time}</code>\n"
-        "━━━━━━━━━━━━━━━━━━━━━",
+        + f"  │  Commit: <a href='{remote_url}/commit/{hexsha}'>{hexsha[:7]}</a>\n"
+        f"  │  Author: <i>{author_name}</i>\n"
+        f"  │  Time: <code>{commit_time}</code>\n"
+        "  │\n"
+        "  ╰─────────────",
         disable_web_page_preview=True,
     )
 

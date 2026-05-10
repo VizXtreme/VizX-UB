@@ -22,65 +22,29 @@ from utils import modules_help, prefix
 
 @Client.on_message(filters.command("id", prefix) & filters.me)
 async def ids(_, message: Message):
-    text = "\n".join(
-        [
-            f"Chat ID: `{message.chat.id}`",
-            f"Chat DC ID: `{message.chat.dc_id}`\n",
-            f"Message ID: `{message.id}`",
-            (
-                f"Your ID: `{message.from_user.id}`"
-                if message.from_user
-                else f"Channel/Group ID: `{message.sender_chat.id}`"
-            ),
-            (
-                f"Your DC ID: `{message.from_user.dc_id}`"
-                if message.from_user
-                else f"Channel/Group ID: `{message.sender_chat.id}`"
-            ),
-        ]
-    )
+    output = f"<b>[VizX]</b> 🆔 <code>ID Info</code>\n\n"
+    output += f"  <b>›</b> Chat: <code>{message.chat.id}</code> (DC {message.chat.dc_id})\n"
+    output += f"  <b>›</b> Msg: <code>{message.id}</code>\n"
+    if message.from_user:
+        output += f"  <b>›</b> User: <code>{message.from_user.id}</code> (DC {message.from_user.dc_id})\n"
+    else:
+        output += f"  <b>›</b> Sender: <code>{message.sender_chat.id}</code>\n"
 
     if rtm := message.reply_to_message:
-        # print(rtm)
-        text += f"\n\nReplied Message ID: `{rtm.id}`"
-
+        output += f"\n  <b>›</b> Replied Msg: <code>{rtm.id}</code>\n"
         if user := rtm.from_user:
-            text = "\n".join(
-                [
-                    text,
-                    f"Replied User ID: `{user.id}`",
-                    f"Replied User DC ID: `{user.dc_id}`",
-                ]
-            )
-
+            output += f"  <b>›</b> Replied User: <code>{user.id}</code> (DC {user.dc_id})\n"
         else:
-            text = "\n".join(
-                [
-                    text,
-                    f"Replied Chat ID: `{rtm.sender_chat.id}`",
-                    f"Replied Chat DC ID: `{rtm.sender_chat.dc_id}`",
-                ]
-            )
+            output += f"  <b>›</b> Replied Chat: <code>{rtm.sender_chat.id}</code> (DC {rtm.sender_chat.dc_id})\n"
 
         if rtm.forward_origin and rtm.forward_origin.date:
             if isinstance(rtm.forward_origin, MessageOriginHiddenUser):
-                text = "\n".join(
-                    [
-                        text,
-                        "\nForwarded from a hidden user.",
-                    ]
-                )
+                output += "\n  <b>›</b> Forwarded: <i>Hidden User</i>\n"
             elif ffc := rtm.forward_origin.sender_user:
-                text = "\n".join(
-                    [
-                        text,
-                        f"\nForwarded Message ID: `{getattr(rtm.forward_origin, 'message_id', None)}`",
-                        f"Forwarded from Chat ID: `{ffc.id}`",
-                        f"Forwarded from Chat DC ID: `{ffc.dc_id}`",
-                    ]
-                )
+                output += f"\n  <b>›</b> Fwd Msg: <code>{getattr(rtm.forward_origin, 'message_id', None)}</code>\n"
+                output += f"  <b>›</b> Fwd Chat: <code>{ffc.id}</code> (DC {ffc.dc_id})\n"
 
-    await message.edit("**__" + text + "__**", parse_mode=enums.ParseMode.MARKDOWN)
+    await message.edit(output)
 
 
 modules_help["id"] = {

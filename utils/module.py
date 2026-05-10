@@ -70,23 +70,22 @@ class HelpNavigator:
         end_index = start_index + 10
         page_modules = self.module_list[start_index:end_index]
 
-        text = "<b>📚 VizX-UB Help</b>\n"
-        text += "━━━━━━━━━━━━━━━━━━━\n"
-        text += (
-            f"Page <b>{self.current_page}</b>/<b>{self.total_pages}</b> │ "
-            f"<code>{prefix}pn</code> next │ <code>{prefix}pp</code> prev\n\n"
-        )
+        text = f"📘 <b>VizX-UB</b> │ <code>Help</code>\n\n"
+        text += f"  ╭─ Modules (Page {self.current_page}/{self.total_pages})\n  │\n"
+        
         for module_name in page_modules:
             commands = modules_help[module_name]
-            cmd_list = " ".join(
+            cmd_list = ", ".join(
                 f"<code>{prefix}{cmd_name.split()[0]}</code>"
                 for cmd_name in commands.keys()
             )
-            text += f"▸ <b>{module_name}</b> — {cmd_list}\n"
-        text += "\n━━━━━━━━━━━━━━━━━━━\n"
+            text += f"  │  <b>• {module_name}</b>: {cmd_list}\n"
+            
+        text += "  │\n"
+        text += f"  ╰─ <i>Total: {len(modules_help)} modules</i>\n\n"
         text += (
-            f"<b>📦 {len(modules_help)} modules</b> │ "
-            f"<code>{prefix}help [name]</code> for details"
+            f"💡 <code>{prefix}help [name]</code> for details │ "
+            f"<code>{prefix}pn</code> / <code>{prefix}pp</code> / <code>{prefix}pq</code>"
         )
         await message.edit(text, disable_web_page_preview=True)
 
@@ -154,14 +153,16 @@ class HelpNavigator:
         if not results:
             return None
 
-        text = f"<b>Search results for</b> <code>{query}</code>:\n\n"
+        text = f"📘 <b>VizX-UB</b> │ <code>Search: {query}</code>\n\n"
+        text += "  ╭─ Results\n  │\n"
+        
         for match_type, name, module_name, _score in results:
             if match_type == "module":
                 cmds = modules_help[module_name]
                 cmd_list = ", ".join(
                     f"<code>{prefix}{c.split()[0]}</code>" for c in cmds
                 )
-                text += f"<b>• {module_name}</b> (module): {cmd_list}\n"
+                text += f"  │  <b>• {module_name}</b>: {cmd_list}\n"
             else:
                 desc = ""
                 for cmd_key, cmd_desc in modules_help[module_name].items():
@@ -169,11 +170,12 @@ class HelpNavigator:
                         desc = cmd_desc
                         break
                 text += (
-                    f"  ◦ <code>{prefix}{name}</code>"
+                    f"  │  ◦ <code>{prefix}{name}</code>"
                     f" — <i>{desc}</i>"
                     f"  [<code>{module_name}</code>]\n"
                 )
 
-        text += f"\n<b>Tip:</b> <code>{prefix}help [name]</code> for full details"
+        text += "  │\n  ╰─────────────\n\n"
+        text += f"💡 <code>{prefix}help [name]</code> for details"
         await message.edit(text, disable_web_page_preview=True)
         return True
