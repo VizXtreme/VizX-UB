@@ -26,7 +26,7 @@ if [[ -f ".env" ]] && [[ -f "my_account.session" ]]; then
   exit
 fi
 
-python3 -m pip install -U -r requirements.txt || exit 2
+python3 -m pip install -U -r requirements-termux.txt || exit 2
 
 echo
 echo "Enter API_ID and API_HASH"

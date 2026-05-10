@@ -1,5 +1,6 @@
 pyrofork==2.3.69
 cryptg
+tgcrypto
 humanize
 pymongo
 psutil
@@ -10,3 +11,4 @@ dulwich==1.2.0
 aiohttp
 aiofiles
 bottle
+pip

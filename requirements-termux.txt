@@ -1,0 +1,32 @@
+# VizX-UB Termux requirements
+# Designed to install cleanly on Termux (Android, aarch64, Python 3.13).
+#
+# System packages installed via pkg are NOT listed here:
+#   numpy, Pillow, psutil, cryptography
+# These are installed via: pkg install python-numpy python-pillow ...
+
+pyrofork
+tgcrypto
+humanize
+pymongo
+dnspython
+environs
+
+# aiohttp/multidict pinned: older versions (e.g. aiohttp 3.6.2 + multidict 4.7.6)
+# use Py_TRASHCAN_SAFE_BEGIN, removed in Python 3.13. Without these pins,
+# `--prefer-binary` may pick the ancient pure-Python wheel and break.
+aiohttp>=3.10
+multidict>=6.1
+
+aiofiles
+bottle
+httpx
+yt-dlp>=2024.5.27
+pathspec
+GitPython
+telegraph
+dulwich
+
+# google-genai removed: pulls in pydantic-core which needs a 30+ min Rust
+# build on Termux. Re-enable only if you use the vizx_response module.
+# google-genai

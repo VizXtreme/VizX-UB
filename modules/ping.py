@@ -21,10 +21,16 @@ from pyrogram.types import Message
 from utils import modules_help, prefix
 
 
+from datetime import datetime
+
 @Client.on_message(filters.command(["ping", "p"], prefix) & filters.me)
 async def ping(client: Client, message: Message):
-    latency = await client.ping()
-    await message.edit(f"<b>[VizX]</b> <code>PING</code> → <b>{latency}ms</b> ⚡")
+    start = datetime.now()
+    msg = await message.edit("<code>Pinging...</code>")
+    end = datetime.now()
+    # Using classic userbot ping calculation
+    latency = round((end - start).microseconds / 1000, 2)
+    await msg.edit(f"<b>[VizX]</b> <code>PING</code> → <b>{latency}ms</b> ⚡")
 
 
 modules_help["ping"] = {
